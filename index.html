@@ -1,1 +1,638 @@
 
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viajes Lore — Agencia de viajes por Argentina y Sudamérica</title>
+<meta name="description" content="Viajes Lore diseña viajes a medida por toda la Argentina y Sudamérica: asesoramiento cercano, itinerarios personalizados y acompañamiento de principio a fin.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14181C;
+    --ink-soft:#1E2429;
+    --paper:#EFE7D8;
+    --paper-soft:#F5EFE3;
+    --gold:#B4893F;
+    --gold-soft:#D9BC85;
+    --petrol:#29494C;
+    --brick:#8C4A3C;
+    --ash:#3A3A38;
+    --line:rgba(20,24,28,0.14);
+    --line-light:rgba(239,231,216,0.18);
+    --maxw:1180px;
+    --ease:cubic-bezier(.16,.8,.28,1);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ash);
+    font-family:'Inter',system-ui,sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    margin:0;
+    color:var(--ink);
+    letter-spacing:-0.01em;
+  }
+
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:14px;
+    height:1px;
+    background:var(--gold);
+    display:inline-block;
+  }
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 32px;}
+
+  :focus-visible{outline:2px solid var(--gold); outline-offset:3px;}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(239,231,216,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:var(--maxw); margin:0 auto; padding:18px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{
+    font-family:'Fraunces',serif;
+    font-size:20px;
+    font-weight:500;
+    color:var(--ink);
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .brand svg{flex-shrink:0;}
+  .brand em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--gold);
+  }
+  nav ul{
+    list-style:none; display:flex; gap:34px; margin:0; padding:0;
+  }
+  nav a{
+    text-decoration:none;
+    font-size:14.5px;
+    color:var(--ash);
+    position:relative;
+    padding-bottom:3px;
+  }
+  nav a::after{
+    content:""; position:absolute; left:0; bottom:0; width:0; height:1px;
+    background:var(--gold); transition:width 0.3s var(--ease);
+  }
+  nav a:hover::after{width:100%;}
+  .nav-right{display:flex; align-items:center; gap:28px;}
+  .btn{
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    font-weight:500;
+    text-decoration:none;
+    padding:11px 22px;
+    border-radius:2px;
+    display:inline-block;
+    transition:all 0.25s var(--ease);
+    border:1px solid transparent;
+    cursor:pointer;
+  }
+  .btn-primary{
+    background:var(--ink); color:var(--paper); border-color:var(--ink);
+  }
+  .btn-primary:hover{background:var(--gold); border-color:var(--gold); color:var(--ink);}
+  .btn-ghost{
+    background:transparent; color:var(--ink); border-color:var(--line);
+  }
+  .btn-ghost:hover{border-color:var(--ink);}
+  .btn-light{background:var(--paper); color:var(--ink); border-color:var(--paper);}
+  .btn-light:hover{background:var(--gold-soft); border-color:var(--gold-soft);}
+
+  .menu-toggle{
+    display:none; background:none; border:none; cursor:pointer; padding:6px;
+  }
+  .menu-toggle span{
+    display:block; width:22px; height:1.5px; background:var(--ink); margin:5px 0; transition:all 0.25s var(--ease);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:var(--ink); color:var(--paper);
+    position:relative; overflow:hidden;
+    padding:120px 0 100px;
+  }
+  .hero .wrap{position:relative; z-index:2;}
+  .hero-route{
+    position:absolute; top:0; right:-6%; height:100%; width:60%;
+    opacity:0.5; z-index:1; pointer-events:none;
+  }
+  .hero-eyebrow{color:var(--gold-soft);}
+  .hero-eyebrow::before{background:var(--gold-soft);}
+  .hero h1{
+    color:var(--paper);
+    font-size:clamp(38px,5.4vw,68px);
+    line-height:1.06;
+    margin:22px 0 26px;
+    max-width:14ch;
+  }
+  .hero h1 i{font-style:italic; color:var(--gold-soft); font-weight:400;}
+  .hero p.lead{
+    max-width:46ch; font-size:18px; line-height:1.65; color:rgba(239,231,216,0.78);
+    margin-bottom:40px;
+  }
+  .hero-ctas{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:64px;}
+  .hero-stats{
+    display:flex; gap:48px; flex-wrap:wrap;
+    border-top:1px solid var(--line-light); padding-top:28px;
+  }
+  .stat .num{
+    font-family:'Fraunces',serif; font-size:30px; color:var(--gold-soft); display:block;
+  }
+  .stat .label{
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:rgba(239,231,216,0.6);
+  }
+
+  /* ---------- Sections generic ---------- */
+  section{padding:110px 0;}
+  .section-head{max-width:640px; margin-bottom:64px;}
+  .section-head h2{font-size:clamp(30px,3.6vw,44px); line-height:1.12; margin:18px 0 20px;}
+  .section-head p{font-size:16.5px; color:var(--ash); opacity:0.85; max-width:52ch;}
+
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity 0.7s var(--ease), transform 0.7s var(--ease);}
+  .reveal.is-visible{opacity:1; transform:translateY(0);}
+
+  /* ---------- Destinos ---------- */
+  #destinos{background:var(--paper-soft); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .route-map{width:100%; height:auto; margin-bottom:56px;}
+  .route-path{
+    fill:none; stroke:var(--gold); stroke-width:1.4; stroke-dasharray:1200;
+    stroke-dashoffset:1200; transition:stroke-dashoffset 1.8s var(--ease);
+  }
+  .route-path.is-visible{stroke-dashoffset:0;}
+  .route-dot{fill:var(--petrol);}
+  .route-label{font-family:'IBM Plex Mono',monospace; font-size:9.5px; fill:var(--ash);}
+
+  .dest-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .dest-card{
+    background:var(--paper-soft); padding:30px 28px;
+  }
+  .dest-card .coord{
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--petrol);
+    display:block; margin-bottom:14px;
+  }
+  .dest-card h3{font-size:21px; margin-bottom:6px;}
+  .dest-card .country{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--gold); display:block; margin-bottom:14px;
+  }
+  .dest-card p{font-size:14.5px; color:var(--ash); opacity:0.85; margin:0;}
+
+  /* ---------- Servicios ---------- */
+  .serv-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:44px 40px;
+  }
+  .serv-card .n{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--gold); display:block; margin-bottom:18px;
+  }
+  .serv-card h3{font-size:22px; margin-bottom:12px;}
+  .serv-card p{font-size:15px; color:var(--ash); opacity:0.85; margin:0;}
+  .serv-card{border-top:1px solid var(--line); padding-top:24px;}
+
+  /* ---------- Proceso ---------- */
+  #proceso{background:var(--ink); color:var(--paper);}
+  #proceso .section-head h2{color:var(--paper);}
+  #proceso .section-head p{color:rgba(239,231,216,0.72);}
+  #proceso .eyebrow{color:var(--gold-soft);}
+  #proceso .eyebrow::before{background:var(--gold-soft);}
+  .proc-list{list-style:none; margin:0; padding:0;}
+  .proc-item{
+    display:grid; grid-template-columns:70px 1fr; gap:28px;
+    padding:30px 0; border-top:1px solid var(--line-light);
+  }
+  .proc-item:last-child{border-bottom:1px solid var(--line-light);}
+  .proc-item .n{font-family:'IBM Plex Mono',monospace; font-size:14px; color:var(--gold-soft); padding-top:4px;}
+  .proc-item h3{color:var(--paper); font-size:21px; margin-bottom:8px;}
+  .proc-item p{margin:0; color:rgba(239,231,216,0.72); font-size:15px; max-width:52ch;}
+
+  /* ---------- Testimonios ---------- */
+  .quote-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:40px;
+  }
+  .quote{border-left:2px solid var(--gold); padding-left:24px;}
+  .quote p{font-family:'Fraunces',serif; font-style:italic; font-size:19px; line-height:1.5; color:var(--ink); margin:0 0 16px;}
+  .quote .who{font-family:'IBM Plex Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.05em; color:var(--petrol);}
+
+  /* ---------- Contacto ---------- */
+  #contacto{background:var(--paper-soft); border-top:1px solid var(--line);}
+  .contact-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:70px;
+  }
+  .contact-info h2{font-size:clamp(28px,3.4vw,38px); margin:18px 0 22px;}
+  .contact-info p{max-width:44ch; margin-bottom:32px; color:var(--ash); opacity:0.85;}
+  .contact-channels{list-style:none; margin:0; padding:0;}
+  .contact-channels li{
+    border-top:1px solid var(--line); padding:16px 0; display:flex; justify-content:space-between; align-items:center;
+  }
+  .contact-channels li:last-child{border-bottom:1px solid var(--line);}
+  .contact-channels .ch-label{font-family:'IBM Plex Mono',monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:0.05em; color:var(--gold);}
+  .contact-channels a{text-decoration:none; font-size:15px; color:var(--ink);}
+  .contact-channels a:hover{color:var(--brick);}
+
+  form{display:flex; flex-direction:column; gap:18px;}
+  .field{display:flex; flex-direction:column; gap:8px;}
+  .field label{font-family:'IBM Plex Mono',monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:0.05em; color:var(--petrol);}
+  .field input, .field select, .field textarea{
+    font-family:'Inter',sans-serif; font-size:15px; padding:12px 14px;
+    background:var(--paper); border:1px solid var(--line); border-radius:2px; color:var(--ink);
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{border-color:var(--gold);}
+  .field textarea{resize:vertical; min-height:100px;}
+  form .btn{align-self:flex-start; margin-top:6px;}
+  .form-note{font-size:12.5px; color:var(--ash); opacity:0.65; margin-top:4px;}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--ink); color:rgba(239,231,216,0.7); padding:56px 0 32px;}
+  .foot-top{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:32px; padding-bottom:36px; border-bottom:1px solid var(--line-light);
+  }
+  .foot-brand{font-family:'Fraunces',serif; font-size:20px; color:var(--paper);}
+  .foot-nav{list-style:none; display:flex; gap:28px; padding:0; margin:0; flex-wrap:wrap;}
+  .foot-nav a{text-decoration:none; font-size:14px; color:rgba(239,231,216,0.7);}
+  .foot-nav a:hover{color:var(--gold-soft);}
+  .foot-bottom{
+    display:flex; justify-content:space-between; padding-top:24px; font-size:12.5px; flex-wrap:wrap; gap:12px;
+    color:rgba(239,231,216,0.45);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:860px){
+    nav ul{display:none;}
+    .menu-toggle{display:block;}
+    .nav-right .btn-ghost{display:none;}
+    .hero{padding:90px 0 70px;}
+    .hero-route{opacity:0.25; width:90%; right:-20%;}
+    .contact-grid{grid-template-columns:1fr; gap:48px;}
+    section{padding:80px 0;}
+  }
+  @media (max-width:520px){
+    .wrap{padding:0 20px;}
+    .nav-inner{padding:16px 20px;}
+    .hero-stats{gap:28px;}
+    .hero-ctas .btn{flex:1; text-align:center;}
+  }
+
+  .mobile-menu{
+    display:none; flex-direction:column; gap:2px; background:var(--paper);
+    border-bottom:1px solid var(--line); padding:8px 20px 18px;
+  }
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{
+    text-decoration:none; color:var(--ink); font-size:16px; padding:12px 0; border-bottom:1px solid var(--line);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <a href="#inicio" class="brand" aria-label="Viajes Lore, inicio">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+        <circle cx="13" cy="13" r="11.5" stroke="currentColor" stroke-width="1"/>
+        <path d="M13 4 L15 12 L13 22 L11 12 Z" fill="var(--gold)" stroke="currentColor" stroke-width="0.6"/>
+      </svg>
+      Viajes <em>Lore</em>
+    </a>
+    <nav aria-label="Navegación principal">
+      <ul>
+        <li><a href="#destinos">Destinos</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#proceso">Cómo trabajamos</a></li>
+        <li><a href="#testimonios">Testimonios</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <a href="#contacto" class="btn btn-ghost">Contacto</a>
+      <a href="https://wa.me/5491100000000" target="_blank" rel="noopener" class="btn btn-primary">Escribinos</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#destinos">Destinos</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#proceso">Cómo trabajamos</a>
+    <a href="#testimonios">Testimonios</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+</header>
+
+<section class="hero" id="inicio">
+  <svg class="hero-route" viewBox="0 0 400 600" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+    <path d="M320 20 C 250 90, 300 160, 230 220 C 170 270, 210 340, 150 400 C 100 450, 130 520, 70 580"
+      fill="none" stroke="var(--gold-soft)" stroke-width="1" stroke-dasharray="4 6" opacity="0.55"/>
+    <circle cx="320" cy="20" r="3" fill="var(--gold-soft)"/>
+    <circle cx="230" cy="220" r="3" fill="var(--gold-soft)"/>
+    <circle cx="150" cy="400" r="3" fill="var(--gold-soft)"/>
+    <circle cx="70" cy="580" r="3" fill="var(--gold-soft)"/>
+  </svg>
+  <div class="wrap">
+    <span class="eyebrow hero-eyebrow">34°36'S 58°22'O — Buenos Aires, punto de partida</span>
+    <h1>Cada viaje empieza<br>con una <i>buena historia.</i></h1>
+    <p class="lead">Diseñamos experiencias a medida por toda la Argentina y Sudamérica, con el acompañamiento cercano de alguien que conoce el camino de punta a punta.</p>
+    <div class="hero-ctas">
+      <a href="#contacto" class="btn btn-primary">Planificá tu viaje</a>
+      <a href="#destinos" class="btn btn-ghost" style="border-color:var(--line-light); color:var(--paper);">Ver destinos</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="num">+300</span><span class="label">Viajeros asesorados</span></div>
+      <div class="stat"><span class="num">9</span><span class="label">Países en el mapa</span></div>
+      <div class="stat"><span class="num">100%</span><span class="label">Itinerarios a medida</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="destinos">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">El mapa como punto de partida</span>
+      <h2>Destinos que armamos a tu manera</h2>
+      <p>Desde la Patagonia hasta el Caribe, cada recorrido se arma según tus tiempos, tu presupuesto y lo que quieras vivir. Estos son algunos de los puntos que más recorremos.</p>
+    </div>
+
+    <svg class="route-map" viewBox="0 0 900 160" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Ilustración de una ruta de viaje con puntos marcados">
+      <path class="route-path" id="routePath" d="M20 120 C 120 40, 200 150, 300 70 C 380 10, 450 130, 540 60 C 620 5, 700 120, 790 40 C 830 15, 850 60, 880 30"/>
+      <g>
+        <circle class="route-dot" cx="20" cy="120" r="4"/>
+        <text class="route-label" x="20" y="140">BUE</text>
+        <circle class="route-dot" cx="300" cy="70" r="4"/>
+        <text class="route-label" x="300" y="55">BRC</text>
+        <circle class="route-dot" cx="540" cy="60" r="4"/>
+        <text class="route-label" x="540" y="45">SLA</text>
+        <circle class="route-dot" cx="790" cy="40" r="4"/>
+        <text class="route-label" x="790" y="25">IGR</text>
+        <circle class="route-dot" cx="880" cy="30" r="4"/>
+        <text class="route-label" x="855" y="55">RIO</text>
+      </g>
+    </svg>
+
+    <div class="dest-grid">
+      <div class="dest-card reveal">
+        <span class="coord">41°08'S 71°18'O</span>
+        <h3>Bariloche</h3>
+        <span class="country">Argentina</span>
+        <p>Lagos, cerros y chocolate. Ideal para escapadas de montaña en cualquier estación.</p>
+      </div>
+      <div class="dest-card reveal">
+        <span class="coord">24°47'S 65°25'O</span>
+        <h3>Salta</h3>
+        <span class="country">Argentina</span>
+        <p>Quebradas, vino de altura y pueblos con historia, a tu ritmo.</p>
+      </div>
+      <div class="dest-card reveal">
+        <span class="coord">50°20'S 72°16'O</span>
+        <h3>El Calafate</h3>
+        <span class="country">Argentina</span>
+        <p>El glaciar Perito Moreno y la Patagonia profunda, sin apuro.</p>
+      </div>
+      <div class="dest-card reveal">
+        <span class="coord">13°09'S 72°32'O</span>
+        <h3>Cusco y Machu Picchu</h3>
+        <span class="country">Perú</span>
+        <p>El recorrido inca clásico, con la logística resuelta de antemano.</p>
+      </div>
+      <div class="dest-card reveal">
+        <span class="coord">22°54'S 68°12'O</span>
+        <h3>San Pedro de Atacama</h3>
+        <span class="country">Chile</span>
+        <p>Desierto, salares y cielos despejados como en ningún otro lugar.</p>
+      </div>
+      <div class="dest-card reveal">
+        <span class="coord">22°54'S 43°12'O</span>
+        <h3>Río de Janeiro</h3>
+        <span class="country">Brasil</span>
+        <p>Playa, montaña y ciudad, todo junto y a pocas horas de vuelo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="servicios">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Servicios</span>
+      <h2>Viajamos como vos querés viajar</h2>
+      <p>No vendemos paquetes cerrados. Armamos cada propuesta según quién viaja y qué está buscando.</p>
+    </div>
+    <div class="serv-grid">
+      <div class="serv-card reveal">
+        <span class="n">01</span>
+        <h3>Viajes a medida</h3>
+        <p>Itinerarios diseñados desde cero: vuelos, alojamiento, traslados y actividades pensados para vos.</p>
+      </div>
+      <div class="serv-card reveal">
+        <span class="n">02</span>
+        <h3>Grupos y familias</h3>
+        <p>Coordinación de viajes compartidos, con logística simple aunque el grupo sea grande.</p>
+      </div>
+      <div class="serv-card reveal">
+        <span class="n">03</span>
+        <h3>Lunas de miel y fechas especiales</h3>
+        <p>Experiencias con un cuidado extra para esos viajes que se recuerdan siempre.</p>
+      </div>
+      <div class="serv-card reveal">
+        <span class="n">04</span>
+        <h3>Viajes corporativos</h3>
+        <p>Gestión de viajes de trabajo e incentivos para equipos, con un solo punto de contacto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="proceso">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Cómo trabajamos</span>
+      <h2>De la idea al viaje, en cuatro pasos</h2>
+      <p>Un proceso simple, pensado para que vos te ocupes de soñar el viaje y nosotros del resto.</p>
+    </div>
+    <ol class="proc-list">
+      <li class="proc-item reveal">
+        <span class="n">01</span>
+        <div><h3>Consulta</h3><p>Charlamos sobre qué estás buscando: destino, fechas, presupuesto y con quién viajás.</p></div>
+      </li>
+      <li class="proc-item reveal">
+        <span class="n">02</span>
+        <div><h3>Diseño del itinerario</h3><p>Armamos una propuesta a medida con opciones concretas para que decidas con tranquilidad.</p></div>
+      </li>
+      <li class="proc-item reveal">
+        <span class="n">03</span>
+        <div><h3>Reserva</h3><p>Coordinamos vuelos, alojamiento, traslados y actividades, y te confirmamos cada detalle.</p></div>
+      </li>
+      <li class="proc-item reveal">
+        <span class="n">04</span>
+        <div><h3>Acompañamiento</h3><p>Estamos disponibles antes, durante y después del viaje, ante cualquier imprevisto.</p></div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="testimonios">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Testimonios</span>
+      <h2>Lo que cuentan quienes ya viajaron</h2>
+    </div>
+    <div class="quote-grid">
+      <div class="quote reveal">
+        <p>"Nos armaron un itinerario por el norte que fue exactamente lo que pedimos, sin vueltas."</p>
+        <span class="who">Marina R. — Salta y Jujuy</span>
+      </div>
+      <div class="quote reveal">
+        <p>"Viajamos en familia con chicos chicos y toda la logística se resolvió sin un solo dolor de cabeza."</p>
+        <span class="who">Diego y Caro — Bariloche</span>
+      </div>
+      <div class="quote reveal">
+        <p>"El acompañamiento durante el viaje se notó: ante un cambio de vuelo, lo resolvieron en minutos."</p>
+        <span class="who">Julieta P. — Perú</span>
+      </div>
+    </div>
+    <p class="form-note reveal" style="margin-top:28px;">Testimonios de ejemplo — reemplazalos por comentarios reales de tus clientes.</p>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <span class="eyebrow">Contacto</span>
+        <h2>Empecemos a planear tu viaje</h2>
+        <p>Contanos qué tenés en mente y te respondemos con una propuesta a medida.</p>
+        <ul class="contact-channels">
+          <li><span class="ch-label">WhatsApp</span><a href="https://wa.me/5491100000000" target="_blank" rel="noopener">+54 9 11 0000-0000</a></li>
+          <li><span class="ch-label">Email</span><a href="mailto:hola@viajeslore.com">hola@viajeslore.com</a></li>
+          <li><span class="ch-label">Instagram</span><a href="https://instagram.com/viajeslore" target="_blank" rel="noopener">@viajeslore</a></li>
+        </ul>
+      </div>
+      <form class="reveal" id="contactForm" action="mailto:hola@viajeslore.com" method="post" enctype="text/plain">
+        <div class="field">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" name="nombre" required placeholder="¿Cómo te llamás?">
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="nombre@correo.com">
+        </div>
+        <div class="field">
+          <label for="destino">Destino de interés</label>
+          <input type="text" id="destino" name="destino" placeholder="Ej: Patagonia, Perú, un poco de todo">
+        </div>
+        <div class="field">
+          <label for="mensaje">Contanos tu idea</label>
+          <textarea id="mensaje" name="mensaje" placeholder="Fechas, cantidad de personas, presupuesto aproximado..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar consulta</button>
+        <p class="form-note">Este formulario abre tu cliente de email. Para recibir consultas directo en la web, se puede conectar a un servicio como Formspree.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <span class="foot-brand">Viajes <em style="color:var(--gold-soft); font-style:italic;">Lore</em></span>
+      <ul class="foot-nav">
+        <li><a href="#destinos">Destinos</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#proceso">Cómo trabajamos</a></li>
+        <li><a href="#testimonios">Testimonios</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Viajes Lore. Todos los derechos reservados.</span>
+      <span>Hecho para viajar por Argentina y Sudamérica.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var toggle = document.getElementById('menuToggle');
+  var mobileMenu = document.getElementById('mobileMenu');
+  toggle.addEventListener('click', function(){
+    var open = mobileMenu.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      mobileMenu.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.15});
+
+  document.querySelectorAll('.reveal').forEach(function(el){ observer.observe(el); });
+
+  var routePath = document.getElementById('routePath');
+  var routeObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        routeObserver.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.3});
+  routeObserver.observe(routePath);
+</script>
+
+</body>
+</html>
